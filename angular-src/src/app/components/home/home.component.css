@@ -1,0 +1,65 @@
+
+.masthead {
+  background-image:url('bg.png') no-repeat center center fixed;
+
+  min-width:100vw;
+  min-height:100vh;
+  margin-left: -21vw;
+  overflow:hidden;
+
+}
+
+
+#bg {
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  filter: blur(8px);
+-webkit-filter: blur(8px);
+  z-index:-1
+}
+#bg img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  min-width: 50%;
+  min-height: 50%;
+}
+
+.pad {
+  margin-bottom:120px;
+}
+
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 25px 25px;
+    min-width: 350px;
+    text-align: center;
+    font-size: 24px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+    margin-top: 50px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+
+}
+
+.button5 {
+    background-color: rgba(0,0,0,0.3);;
+    color: white;
+    border: 3px solid white;
+}
+
+.button5:hover {
+    background-color: #555555;
+    color: black;
+}
