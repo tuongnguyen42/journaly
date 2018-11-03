@@ -12,7 +12,7 @@ passportFunc(passport)
 
 
 // Connect To Database
-mongoose.connect(config.database);
+mongoose.connect(config.database, { useNewUrlParser: true })
 
 // On Connection
 mongoose.connection.on('connected', () => {
