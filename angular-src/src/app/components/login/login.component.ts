@@ -10,7 +10,7 @@ import {Router} from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  username:String;
+  email:String;
   password:String;
 
   constructor(
@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
 
   onLoginSubmit(){
     const user = {
-      username: this.username,
+      email: this.email,
       password: this.password
     }
 

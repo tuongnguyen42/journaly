@@ -6,17 +6,21 @@ export class ValidateService {
   constructor() { }
 
   validateRegister(user){
-    if(user.name == undefined ||user.email == undefined ||user.username == undefined || user.password == undefined){
+    if(user.name == undefined ||user.email == undefined || user.password == undefined){
       return false;
     }
     else return true;
   }
 
   validateLogin(user){
-    if(user.username == undefined || user.password == undefined){
+    if(user.email == undefined || user.password == undefined){
       return false;
     }
     else return true;
+  }
+
+  validatePassword(p1, p2){
+    return (p1 === p2);
   }
 
   validateEmail(email) {

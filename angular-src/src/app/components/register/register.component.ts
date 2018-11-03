@@ -10,9 +10,9 @@ import {Router} from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
   name: String;
-  username: String;
   email:String;
   password:String;
+  password2:String;
 
   constructor(
     private validateService: ValidateService,
@@ -28,8 +28,13 @@ export class RegisterComponent implements OnInit {
     const user = {
       name: this.name,
       email: this.email,
-      username: this.username,
-      password: this.password
+      password: this.password,
+      password2: this.password
+    }
+
+    if(!this.validateService.validatePassword(this.password, this.password2)){
+      this.flashMessage.show('Password must match!', {cssClass: 'alert-danger', timeout: 3000});
+      return false;
     }
 
     // Required Fields
