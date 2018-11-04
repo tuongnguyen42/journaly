@@ -1,3 +1,67 @@
-<p>
-  dashboard works!
-</p>
+<!-- <div class="row justify-content-center"><h2>Register</h2></div> -->
+<!-- <div class="card text-white bg-prim mb-4" style="max-width: 500rem;">
+  <div class="card-body">
+    <form (submit) ="onPostSubmit()">
+          <div class="row justify-content-center">
+            <label for="inputPassword" class="col-sm-2 col-form-label"></label>
+            <div class="row">
+              <div class="col-sm-5">
+                <input type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="body" body = "body" class="form-control" placeholder="What's on your mind?">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="comment">Comment:</label>
+              <textarea class="form-control" rows="5" id="comment" [ngModelOptions]="{standalone: true}" [(ngModel)]="body" body = "body">
+
+              </textarea>
+            </div>
+          </div>
+
+          <div class="row justify-content-center">
+            <label for="inputPassword" class="col-sm-2 col-form-label">tags</label>
+            <div class="col-sm-5">
+              <input type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="tags" tags = "tags" class="form-control" placeholder="tags">
+            </div>
+          </div>
+
+          <div class="row justify-content-center">
+          <button type="submit" class="btn btn-success" value="Submit">Post</button>
+          </div>
+
+    </form>
+
+
+  </div> -->
+
+
+  <form (submit)="onPostSubmit()">
+    <div>
+    <div class="card text-white bg-prim mb-4" style="max-width: 500rem;">
+      <textarea style="border: none"placeholder="Whats on your mind?" class="card-header text-white" rows="5" [ngModelOptions]="{standalone: true}" [(ngModel)]="body" body="body"> </textarea>
+
+      <div></div>
+      <textarea style="border: none" placeholder="tags" class="card-header text-white" rows="1" [ngModelOptions]="{standalone: true}" [(ngModel)]="tags" tags="tags"></textarea>
+      <!-- <div class="m-t-10" id="editorTools"><input accept="image/png,image/jpeg,video/mp4,video/mpeg,image/gif,audio/mpeg,audio/mp3" id="chooser" type="file">  </div> -->
+      <div class="d-flex flex-row-reverse">
+        <button type="submit" class="btn btn-success" value="Submit">Post</button>
+      </div>
+    </div>
+    </div>
+  </form>
+
+
+<div *ngFor ="let post of posts">
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title">{{post.date}}</h4>
+    <p class="card-text">{{post.body}}</p>
+    <h6 class="card-subtitle mb-2 text-muted">Tags: {{post.tags}}</h6>
+  </div>
+</div>
+</div>
+
+  <form (load)="onLoadSubmit()">
+<div class="row justify-content-center">
+<button type="load" class="btn btn-secondary" value="Load">Load more</button>
+</div>
+</form>

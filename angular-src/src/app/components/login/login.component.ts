@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
     }
 
     if(!this.validateService.validateLogin(user)){
-      this.flashMessage.show('Please fill in all fields', {cssClass: 'alert-danger', timeout: 3000});
+      this.flashMessage.show('Please fill in all fields', {cssClass: 'alert-info', timeout: 3000});
       return false;
     }
 

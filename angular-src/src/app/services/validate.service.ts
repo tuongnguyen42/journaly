@@ -19,6 +19,13 @@ export class ValidateService {
     else return true;
   }
 
+  validatePost(post){
+    if(post.body == undefined){
+      return false;
+    }
+    else return true;
+  }
+
   validatePassword(p1, p2){
     return (p1 === p2);
   }

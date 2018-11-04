@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 import bcrypt from 'bcryptjs'
 import config from '../config/database'
+import Post from './post'
 
 const UserSchema = mongoose.Schema ({
   name: {
@@ -13,7 +14,19 @@ const UserSchema = mongoose.Schema ({
   password: {
     type: String,
     required: true
-  }
+  },
+  posts: [{
+    body: {
+      type: String
+    },
+    date: {
+      type: Date,
+      required: true
+    },
+    tags: {
+      type: [String]
+    }
+  }]
 })
 
 const User = module.exports = mongoose.model('User', UserSchema);
@@ -38,6 +51,23 @@ module.exports.addUser = function(newUser, callback){
     });
   });
 }
+
+ module.exports.addEntry = function (id, newPost, callback){
+   User.findByIdAndUpdate(
+        id,
+        {$push: {posts: newPost}},
+        {safe: true, upsert: true, new : true},
+        callback);
+
+ }
+
+
+
+ // module.exports.getPosts = function (id, callback){
+ //   const query = {_id: id}
+ //   let user = User.findOne(query, callback);
+ //
+ // }
 
 module.exports.comparePassword = function(candidatePassword, hash, callback){
   bcrypt.compare(candidatePassword, hash, (err, isMatch) => {

@@ -4,6 +4,7 @@ import passport from 'passport'
 import jwt from 'jsonwebtoken'
 import config from '../config/database'
 import User from '../models/user'
+import Post from '../models/post'
 
 // Register
 router.post('/register', (req, res, next) => {
@@ -12,6 +13,8 @@ router.post('/register', (req, res, next) => {
     email: req.body.email,
     password: req.body.password
   })
+
+
 
 
 //if username already exists in teh database return message
@@ -57,8 +60,7 @@ router.post('/authenticate', (req, res, next) => {
           user: {
             id: user._id,
             name: user.name,
-            username: user.username,
-            email: user.email
+            username: user.username
           }
         })
       } else {
@@ -68,11 +70,92 @@ router.post('/authenticate', (req, res, next) => {
   })
 })
 
+
+
+//post entries
+
+// router.post('/entries', (req, res, next) => {
+//   let newPost = new Post({
+//     body: req.body.body,
+//     date: new Date().toJSON().slice(0,10).replace(/-/g,'/'),
+//     tags: req.body.tags,
+//   })
+//
+//
+//   User.addEntry(newPost, (err, post) =>{
+//     if(err){
+//       res.json({success: false, msg:'Failed to add post'});
+//     }
+//     if (post){
+//       console.log(newPost);
+//       console.log(this.User);
+//       return res.json({success: true, msg:'Post added!'});
+//     }
+//   })
+// })
+
+router.post('/entries', verifyToken, (req, res) => {
+  jwt.verify(req.token, 'yoursecret', (err, authData) => {
+    if(err) {
+      res.sendStatus(403);
+    } else {
+      let newPost = new Post({
+        body: req.body.body,
+        date: new Date().toJSON().slice(0,10).replace(/-/g,'/'),
+        tags: req.body.tags
+      })
+      User.addEntry(authData._id, newPost, (err, post) =>{
+        if(err){
+          res.json({success: false, msg:'Failed to add post'});
+        }
+        if (post){
+          return res.json({success: true, msg:'Post added!'});
+        }
+      })
+    }
+  });
+});
+
+
+// router.get('/entries', verifyToken, (req, res) => {
+//   jwt.verify(req.token, 'yoursecret', (err, authData) => {
+//     if(err) {
+//       throw err;
+//     } else {
+//
+//       let posts = Post.getPostById(authData.posts)
+// //        res.json({post: posts});
+//
+//     }
+//   });
+// });
+
 // Profile
 router.get('/profile', passport.authenticate('jwt', {session:false}), (req, res, next) => {
   res.json({user: req.user});
 })
 
+
+// Verify Token
+function verifyToken(req, res, next) {
+  // Get auth header value
+  const bearerHeader = req.headers['authorization'];
+  // Check if bearer is undefined
+  if(typeof bearerHeader !== 'undefined') {
+    // Split at the space
+    const bearer = bearerHeader.split(' ');
+    // Get token from array
+    const bearerToken = bearer[1];
+    // Set the token
+    req.token = bearerToken;
+    // Next middleware
+    next();
+  } else {
+    // Forbidden
+    res.sendStatus(403);
+  }
+
+}
 
 
 
